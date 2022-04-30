@@ -31,7 +31,7 @@ export default function IP() {
 					<Input
 						className="w-full"
 						icon={<Terminal />}
-						placeholder="ip address"
+						placeholder="IP Address"
 						ref={ipRef}
 					/>
 					<Button type="submit">
@@ -52,7 +52,7 @@ export default function IP() {
 				console.log(res);
 				setResult(res);
 			});
-		}, [ip]);
+		}, []);
 
 		if (result) {
 			return (

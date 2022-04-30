@@ -1,7 +1,14 @@
 import React, { useRef, useState } from "react";
 import Head from "next/head";
 import Shell from "../../components/Shell";
-import { At, Ban, Check, QuestionMark, Search } from "tabler-icons-react";
+import {
+	AlertTriangle,
+	At,
+	Ban,
+	Check,
+	QuestionMark,
+	Search,
+} from "tabler-icons-react";
 import { Button, Input, Loader } from "@mantine/core";
 
 export default function UserSearch() {
@@ -20,12 +27,7 @@ export default function UserSearch() {
 			</Head>
 			<Shell>
 				<h1>Username Search</h1>
-				<p>
-					This tool links to the profile page of a certain user on
-					different websites and social networks. Caused by the
-					CORS-policy the <span className="text-red-500">tool is unable to show the existence</span> of a
-					profile directly on this page.
-				</p>
+
 				<div className="mt-4">
 					<form className="flex gap-2" onSubmit={start}>
 						<Input
@@ -39,7 +41,7 @@ export default function UserSearch() {
 						</Button>
 					</form>
 				</div>
-				<ul className="flex gap-2 list-none mt-4">
+				<ul className="flex flex-wrap gap-2 list-none mt-4">
 					{urls.map((item, index) => {
 						if (username) {
 							return (
@@ -70,17 +72,39 @@ export default function UserSearch() {
 		let profile = props.url + username;
 
 		React.useEffect(() => {
-			fetch(profile, { method: "HEAD", mode: "no-cors" }).then((res) => {
-				console.log(props.name, res);
-				setStatus(res.ok ? "found" : "notFound");
-			});
-		}, []);
+			if (notWorking.includes(props.name)) {
+				setStatus("error");
+			} else {
+				fetch("/api/user/" + profile)
+					.then((res) => res.json())
+					.then((data) => {
+						console.log(props.name, data);
+						if (data.found) setStatus("found");
+						else setStatus("notFound");
+					});
+			}
+		}, [props.name, profile]);
+
+		if (status === "error") {
+			return (
+				<Button
+					component="a"
+					href={"http://" + profile}
+					target="_blank"
+					rel="noreferrer"
+					color="yellow"
+					leftIcon={<AlertTriangle className="w-6" />}
+				>
+					{props.name}
+				</Button>
+			);
+		}
 
 		if (status === "found") {
 			return (
 				<Button
 					component="a"
-					href={profile}
+					href={"http://" + profile}
 					target="_blank"
 					rel="noreferrer"
 					color="green"
@@ -95,7 +119,7 @@ export default function UserSearch() {
 			return (
 				<Button
 					component="a"
-					href={profile}
+					href={"http://" + profile}
 					target="_blank"
 					rel="noreferrer"
 					color="red"
@@ -109,7 +133,7 @@ export default function UserSearch() {
 		return (
 			<Button
 				component="a"
-				href={profile}
+				href={"http://" + profile}
 				target="_blank"
 				rel="noreferrer"
 				color="gray"
@@ -121,25 +145,30 @@ export default function UserSearch() {
 	}
 }
 
+const notWorking = ["Instagram", "Twitter", "Steam"];
 const urls = [
 	{
 		name: "Instagram",
-		url: "https://instagram.com/",
+		url: "instagram.com/",
 	},
 	{
 		name: "Twitter",
-		url: "https://twitter.com/",
+		url: "twitter.com/",
 	},
 	{
 		name: "Reddit",
-		url: "https://www.reddit.com/user/",
+		url: "www.reddit.com/user/",
 	},
 	{
 		name: "GitHub",
-		url: "https://github.com/",
+		url: "github.com/",
 	},
 	{
 		name: "Steam",
-		url: "https://steamcommunity.com/id/",
+		url: "steamcommunity.com/id/",
+	},
+	{
+		name: "gutefrage",
+		url: "www.gutefrage.net/nutzer/",
 	},
 ];

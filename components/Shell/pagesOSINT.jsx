@@ -6,5 +6,9 @@ export const pagesOSINT = [
 	{
 		name: "IP Tracker",
 		link: "/osint/ip",
-	}
+	},
+	{
+		name: "Phone Number",
+		link: "/osint/phone",
+	},
 ];
