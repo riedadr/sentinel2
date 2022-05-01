@@ -11,10 +11,10 @@ import {
 	useMantineTheme,
 	ScrollArea,
 	ActionIcon,
-	useMantineColorScheme
+	useMantineColorScheme,
 } from "@mantine/core";
 import NavbarContent from "./Shell/NavbarContent";
-import { Sun, MoonStars } from 'tabler-icons-react';
+import { Sun, MoonStars } from "tabler-icons-react";
 
 export default function Shell(props) {
 	const theme = useMantineTheme();
@@ -26,7 +26,7 @@ export default function Shell(props) {
 				main: {
 					background:
 						theme.colorScheme === "dark"
-							? theme.colors.bgDark[0]
+							? theme.colors.dark[8]
 							: theme.colors.gray[0],
 				},
 			}}
@@ -82,23 +82,25 @@ export default function Shell(props) {
 				</Header>
 			}
 		>
-			<ScrollArea id="pageScrollArea">{props.children}</ScrollArea>
+			<ScrollArea id="pageScrollArea">
+				<div className={props.className}>{props.children}</div>
+			</ScrollArea>
 		</AppShell>
 	);
 }
 
 function ThemeSwitch() {
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
+	const dark = colorScheme === "dark";
 
 	return (
 		<ActionIcon
-		  variant="outline"
-		  color={dark ? 'yellow' : 'blue'}
-		  onClick={() => toggleColorScheme()}
-		  title="Toggle color scheme"
+			variant="outline"
+			color={dark ? "yellow" : "blue"}
+			onClick={() => toggleColorScheme()}
+			title="Toggle color scheme"
 		>
-		  {dark ? <Sun size={18} /> : <MoonStars size={18} />}
+			{dark ? <Sun size={18} /> : <MoonStars size={18} />}
 		</ActionIcon>
-	  );
+	);
 }

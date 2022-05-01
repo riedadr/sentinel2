@@ -30,4 +30,13 @@ nav #pageName {
 #Shell #pageScrollArea {
   height: calc(100vh - (70px + 2rem));
 }
+
+.user #instagram #counters div {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.user #instagram #counters div.lined {
+  border-right: 1px solid #64748b;
+}
 /*# sourceMappingURL=globals.css.map */
