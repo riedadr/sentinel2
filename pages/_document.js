@@ -16,7 +16,7 @@ class MyDocument extends Document {
                     ></link>
                     <meta name="theme-color" content="#18181b" />
                 </Head>
-                <body>
+                <body className='dark'>
                     <Main />
                     <NextScript />
                 </body>

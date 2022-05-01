@@ -7,6 +7,7 @@ import {
 } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import "../styles/globals.css";
+import React from "react";
 
 export default function App(props: AppProps) {
 	const { Component, pageProps } = props;
@@ -17,8 +18,13 @@ export default function App(props: AppProps) {
 		getInitialValueInEffect: true,
 	});
 
-	const toggleColorScheme = (value?: ColorScheme) =>
-		setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+	const toggleColorScheme = (value?: ColorScheme) => {
+		let newScheme = value || (colorScheme === "dark" ? "light" : "dark");
+		setColorScheme(newScheme);
+		console.log(newScheme);
+		document.querySelector("body").classList.remove(colorScheme);
+		document.querySelector("body").classList.add(newScheme);
+	};
 
 	useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
@@ -31,6 +37,7 @@ export default function App(props: AppProps) {
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
 			</Head>
+
 
 			<ColorSchemeProvider
 				colorScheme={colorScheme}
