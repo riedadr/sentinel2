@@ -15,6 +15,7 @@ import {
 } from "@mantine/core";
 import NavbarContent from "./Shell/NavbarContent";
 import { Sun, MoonStars } from "tabler-icons-react";
+import Info from "./Info";
 
 export default function Shell(props) {
 	const theme = useMantineTheme();
@@ -47,6 +48,7 @@ export default function Shell(props) {
 				<MediaQuery smallerThan="lg" styles={{ display: "none" }}>
 					<Aside p="md" hiddenBreakpoint="lg" width={{ lg: 300 }}>
 						<Text>Application sidebar</Text>
+						<Info />
 					</Aside>
 				</MediaQuery>
 			}
@@ -98,7 +100,7 @@ function ThemeSwitch() {
 			variant="outline"
 			color={dark ? "yellow" : "blue"}
 			onClick={() => toggleColorScheme()}
-			title="Toggle color scheme"
+			title="Switch Theme [ctrl + j]"
 		>
 			{dark ? <Sun size={18} /> : <MoonStars size={18} />}
 		</ActionIcon>

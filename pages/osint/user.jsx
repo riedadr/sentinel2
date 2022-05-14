@@ -22,7 +22,6 @@ import {
 	Loader,
 } from "@mantine/core";
 import axios from "axios";
-import { userData } from "./userData";
 
 export default function UserSearch() {
 	const userRef = useRef(null);

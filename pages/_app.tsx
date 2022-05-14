@@ -8,6 +8,7 @@ import {
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import "../styles/globals.css";
 import React from "react";
+import { InfoProvider } from "../contexts/info";
 
 export default function App(props: AppProps) {
 	const { Component, pageProps } = props;
@@ -38,7 +39,6 @@ export default function App(props: AppProps) {
 				/>
 			</Head>
 
-
 			<ColorSchemeProvider
 				colorScheme={colorScheme}
 				toggleColorScheme={toggleColorScheme}
@@ -55,7 +55,9 @@ export default function App(props: AppProps) {
 						colorScheme: colorScheme,
 					}}
 				>
-					<Component {...pageProps} />
+					<InfoProvider>
+						<Component {...pageProps} />
+					</InfoProvider>
 				</MantineProvider>
 			</ColorSchemeProvider>
 		</>

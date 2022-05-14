@@ -21,7 +21,7 @@ export default function NavbarContent() {
 			<Navbar.Section grow mt="md">
 				<Accordion>
 					<Accordion.Item label="OSINT">
-						<div className="flex gap-2">
+						<div className="flex gap-2 flex-wrap">
 							{pagesOSINT.map((item, index) => {
 								return (
 									<Link key={index} href={item.link} passHref>
