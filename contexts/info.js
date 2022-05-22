@@ -7,11 +7,26 @@ export function useInfo() {
 }
 
 export function InfoProvider({ children }) {
+	const [user, setUser] = useState({
+		user: "Karsten",
+		person: "cit116",
+		group: "sentinel",
+		image: "https://github.com/riedadr.png",
+	});
 	const [ipAddr, setIpAddr] = useState("unknown");
 	const [ipLoc, setIpLoc] = useState("unknown");
 	const [gps, setGps] = useState();
-	const [theme, setTheme] = useState("dark")
-	
+	const [theme, setTheme] = useState("dark");
+
+	function login(props) {
+		setUser({
+			user: props.user,
+			person: props.person,
+			group: props.group,
+			image: props.image,
+		});
+	}
+
 	function getIP() {
 		fetch("/api/ip")
 			.then((res) => res.json())
@@ -23,8 +38,6 @@ export function InfoProvider({ children }) {
 			.catch((err) => console.log(err));
 	}
 
-	
-
 	function getGPS() {
 		navigator.geolocation.getCurrentPosition((data) => {
 			console.log(data);
@@ -33,6 +46,7 @@ export function InfoProvider({ children }) {
 	}
 
 	const value = {
+		user,
 		ipAddr,
 		ipLoc,
 		gps,
@@ -44,7 +58,9 @@ export function InfoProvider({ children }) {
 		getGPS();
 
 		setTheme(localStorage.colorScheme);
-		document.querySelector("body").className = localStorage.colorScheme.replace('"', '').replace('"', '');
+		document.querySelector("body").className = localStorage.colorScheme
+			.replace('"', "")
+			.replace('"', "");
 	}, []);
 
 	return (

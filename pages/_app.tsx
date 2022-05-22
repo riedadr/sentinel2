@@ -6,13 +6,15 @@ import {
 	ColorScheme,
 } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
 import React from "react";
 import { InfoProvider } from "../contexts/info";
 
-export default function App(props: AppProps) {
-	const { Component, pageProps } = props;
-
+export default function App({
+	Component,
+	pageProps: { session, ...pageProps },
+}) {
 	const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
 		key: "colorScheme",
 		defaultValue: "light",
@@ -38,28 +40,29 @@ export default function App(props: AppProps) {
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
 			</Head>
-
-			<ColorSchemeProvider
-				colorScheme={colorScheme}
-				toggleColorScheme={toggleColorScheme}
-			>
-				<MantineProvider
-					withGlobalStyles
-					withNormalizeCSS
-					theme={{
-						colors: {
-							bgDark: ["#141517"],
-							fgDark: ["#18181b"],
-						},
-						/** Put your mantine theme override here */
-						colorScheme: colorScheme,
-					}}
+			<SessionProvider session={session}>
+				<ColorSchemeProvider
+					colorScheme={colorScheme}
+					toggleColorScheme={toggleColorScheme}
 				>
-					<InfoProvider>
-						<Component {...pageProps} />
-					</InfoProvider>
-				</MantineProvider>
-			</ColorSchemeProvider>
+					<MantineProvider
+						withGlobalStyles
+						withNormalizeCSS
+						theme={{
+							colors: {
+								bgDark: ["#141517"],
+								fgDark: ["#18181b"],
+							},
+							/** Put your mantine theme override here */
+							colorScheme: colorScheme,
+						}}
+					>
+						<InfoProvider>
+							<Component {...pageProps} />
+						</InfoProvider>
+					</MantineProvider>
+				</ColorSchemeProvider>
+			</SessionProvider>
 		</>
 	);
 }

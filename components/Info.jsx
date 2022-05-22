@@ -1,4 +1,6 @@
+import { Button } from "@mantine/core";
 import React from "react";
+import { Map2 } from "tabler-icons-react";
 import { useInfo } from "../contexts/info";
 
 export default function Info() {
@@ -24,6 +26,17 @@ export default function Info() {
 					<p>
 						{gps.coords.latitude}°N {gps.coords.longitude}°E
 					</p>
+					<Button
+					className="mt-2"
+					variant="outline"
+					component="a"
+					href={"https://www.google.com/maps/place/" + gps.coords.latitude + "N+" + gps.coords.longitude + "E"}
+					target="_blank"
+					rel="noreferrer"
+					leftIcon={<Map2 />}
+						>
+						Gmaps
+					</Button>
 				</div>
 			)}
 		</div>

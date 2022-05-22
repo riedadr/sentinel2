@@ -7,9 +7,11 @@ import {
 	Group,
 	Modal,
 	Navbar,
+	Tab,
+	Tabs,
 	Text,
+	ThemeIcon,
 	UnstyledButton,
-	useMantineColorScheme,
 	useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
@@ -17,20 +19,28 @@ import React from "react";
 import {
 	ChevronLeft,
 	ChevronRight,
-	InfoCircle,
-	MoonStars,
-	Sun,
+	Tool,
+	Urgent,
+	User,
+	UserPlus,
 } from "tabler-icons-react";
 import { pagesOSINT } from "./pagesOSINT";
-import Info from "../Info";
+import { useInfo } from "../../contexts/info";
+import InfoModal from "../Modal/InfoModal";
+import SettingsModal from "../Modal/SettingsModal";
+import AlertModal from "../Modal/AlertModal";
+import ThemeSwitch from "../ThemeSwitch";
+
 
 export default function NavbarContent() {
 	return (
 		<>
 			<Navbar.Section>
 				<div className="flex gap-4">
-					<ThemeSwitch />
+					<AlertModal />
 					<InfoModal />
+					<SettingsModal />
+					<ThemeSwitch />
 				</div>
 			</Navbar.Section>
 			<Navbar.Section grow mt="md">
@@ -40,16 +50,41 @@ export default function NavbarContent() {
 							{pagesOSINT.map((item, index) => {
 								return (
 									<Link key={index} href={item.link} passHref>
-										<Button
-											variant="gradient"
-											gradient={{
-												from: "teal",
-												to: "blue",
-												deg: 60,
-											}}
+										<UnstyledButton
+											sx={(theme) => ({
+												display: "block",
+												width: "100%",
+												padding: theme.spacing.xs,
+												borderRadius: theme.radius.sm,
+												color:
+													theme.colorScheme === "dark"
+														? theme.colors.dark[0]
+														: theme.black,
+
+												"&:hover": {
+													backgroundColor:
+														theme.colorScheme ===
+														"dark"
+															? theme.colors
+																	.dark[6]
+															: theme.colors
+																	.gray[0],
+												},
+											})}
 										>
-											{item.name}
-										</Button>
+											<Group>
+												<ThemeIcon
+													className="p-0.5"
+													color="orange"
+													variant="light"
+												>
+													{item.icon}
+												</ThemeIcon>
+												<Text size="sm">
+													{item.name}
+												</Text>
+											</Group>
+										</UnstyledButton>
 									</Link>
 								);
 							})}
@@ -65,6 +100,7 @@ export default function NavbarContent() {
 }
 
 function UserContent() {
+	const { user } = useInfo();
 	const theme = useMantineTheme();
 
 	return (
@@ -98,13 +134,13 @@ function UserContent() {
 				}}
 			>
 				<Group>
-					<Avatar src="https://github.com/riedadr.png" radius="xl" />
+					<Avatar src={user.image} radius="xl" />
 					<Box sx={{ flex: 1 }}>
 						<Text size="sm" weight={500}>
-							Karsten
+							{user.user}
 						</Text>
 						<Text color="dimmed" size="xs">
-							cit116@sentinel
+							{user.pserson}@{user.group}
 						</Text>
 					</Box>
 
@@ -116,44 +152,5 @@ function UserContent() {
 				</Group>
 			</UnstyledButton>
 		</Box>
-	);
-}
-
-function ThemeSwitch() {
-	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-	const dark = colorScheme === "dark";
-
-	return (
-		<ActionIcon
-			variant="outline"
-			color={dark ? "yellow" : "blue"}
-			onClick={() => toggleColorScheme()}
-			title="[CTRL] + [J]"
-		>
-			{dark ? <Sun size={18} /> : <MoonStars size={18} />}
-		</ActionIcon>
-	);
-}
-
-function InfoModal() {
-	const [opened, setOpened] = React.useState(false);
-
-	return (
-		<>
-			<Modal
-				opened={opened}
-				onClose={() => setOpened(false)}
-				title="Information"
-			>
-				<Info />
-			</Modal>
-
-			<ActionIcon
-				variant="outline"
-				onClick={() => setOpened(true)}
-			>
-				<InfoCircle size={18} />
-			</ActionIcon>
-		</>
 	);
 }

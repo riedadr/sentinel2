@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Logo } from "../assets/images/Logo";
 import styles from "../styles/Login.module.css";
 import { Button, Text } from "@mantine/core";
+import Router from "next/router";
 
 export default function login() {
 	return (
@@ -27,12 +28,23 @@ export default function login() {
 function Form() {
 	const userRef = useRef();
 	const pwRef = useRef();
+	const [message, setMessage] = React.useState(null)
 
-    function submit() {
+    async function submit(e) {
+		e.preventDefault();
         let user = userRef.current.value;
         let pw = pwRef.current.value;
 
         console.log(user,pw);
+
+		let options = { redirect: false, user, pw};
+		const res = await signIn("credentials", options);
+		setMessage(null);
+		if (res?.error) {
+			setMessage(res.error)
+		}
+
+		return Router.push("/")
     }
 
 	return (
@@ -42,7 +54,8 @@ function Form() {
 			<label htmlFor="pw">Password</label>
 			<input name="pw" type="password" ref={pwRef} />
 			<br />
-			<Button className="bg-theme" color="orange" onClick={submit}>
+			{message && <p className="text-red-500">{message}</p>}
+			<Button type="submit" className="bg-theme" color="orange" onClick={submit}>
 				anmelden
 			</Button>
 		</form>
