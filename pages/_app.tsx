@@ -23,8 +23,8 @@ export default function App(props: AppProps) {
 		let newScheme = value || (colorScheme === "dark" ? "light" : "dark");
 		setColorScheme(newScheme);
 		console.log(newScheme);
-		document.querySelector("body").classList.remove(colorScheme);
-		document.querySelector("body").classList.add(newScheme);
+
+		document.querySelector("body").className = newScheme;
 	};
 
 	useHotkeys([["mod+J", () => toggleColorScheme()]]);
@@ -48,7 +48,7 @@ export default function App(props: AppProps) {
 					withNormalizeCSS
 					theme={{
 						colors: {
-							bgDark: ["#27272a"],
+							bgDark: ["#141517"],
 							fgDark: ["#18181b"],
 						},
 						/** Put your mantine theme override here */

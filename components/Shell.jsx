@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 import {
 	AppShell,
 	Navbar,
@@ -16,6 +18,7 @@ import {
 import NavbarContent from "./Shell/NavbarContent";
 import { Sun, MoonStars } from "tabler-icons-react";
 import Info from "./Info";
+import {Logo} from "../assets/images/Logo"
 
 export default function Shell(props) {
 	const theme = useMantineTheme();
@@ -27,7 +30,7 @@ export default function Shell(props) {
 				main: {
 					background:
 						theme.colorScheme === "dark"
-							? theme.colors.dark[8]
+							? theme.colors.bgDark[0]
 							: theme.colors.gray[0],
 				},
 			}}
@@ -47,7 +50,6 @@ export default function Shell(props) {
 			aside={
 				<MediaQuery smallerThan="lg" styles={{ display: "none" }}>
 					<Aside p="md" hiddenBreakpoint="lg" width={{ lg: 300 }}>
-						<Text>Application sidebar</Text>
 						<Info />
 					</Aside>
 				</MediaQuery>
@@ -79,7 +81,8 @@ export default function Shell(props) {
 								<Text id="pageName">Sentinel</Text>
 							</Link>
 						</div>
-						<ThemeSwitch />
+						<Logo className="h-10"/>
+						
 					</div>
 				</Header>
 			}

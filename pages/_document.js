@@ -1,5 +1,26 @@
-import { createGetInitialProps } from '@mantine/next';
+import React from "react";
+import { createGetInitialProps } from "@mantine/next";
 import Document, { Html, Head, Main, NextScript } from "next/document";
+
+
+
+export default function _document() {    
+	return (
+		<Html>
+			<Head>
+				<link rel="manifest" href="/manifest.json" />
+				<link rel="apple-touch-icon" href="/icon-192x192.png"></link>
+				<meta name="theme-color" content="#18181b" />
+			</Head>
+			<body className="dark">
+				<Main />
+				<NextScript />
+			</body>
+		</Html>
+	);
+}
+
+/* Class Component
 
 const getInitialProps = createGetInitialProps();
 class MyDocument extends Document {
@@ -26,3 +47,4 @@ class MyDocument extends Document {
 }
 
 export default MyDocument;
+*/

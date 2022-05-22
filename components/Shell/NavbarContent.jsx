@@ -1,23 +1,38 @@
 import {
 	Accordion,
+	ActionIcon,
 	Avatar,
 	Box,
 	Button,
 	Group,
+	Modal,
 	Navbar,
 	Text,
 	UnstyledButton,
+	useMantineColorScheme,
 	useMantineTheme,
 } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
-import { ChevronLeft, ChevronRight } from "tabler-icons-react";
+import {
+	ChevronLeft,
+	ChevronRight,
+	InfoCircle,
+	MoonStars,
+	Sun,
+} from "tabler-icons-react";
 import { pagesOSINT } from "./pagesOSINT";
+import Info from "../Info";
 
 export default function NavbarContent() {
 	return (
 		<>
-			<Navbar.Section>QuickLink</Navbar.Section>
+			<Navbar.Section>
+				<div className="flex gap-4">
+					<ThemeSwitch />
+					<InfoModal />
+				</div>
+			</Navbar.Section>
 			<Navbar.Section grow mt="md">
 				<Accordion>
 					<Accordion.Item label="OSINT">
@@ -101,5 +116,44 @@ function UserContent() {
 				</Group>
 			</UnstyledButton>
 		</Box>
+	);
+}
+
+function ThemeSwitch() {
+	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+	const dark = colorScheme === "dark";
+
+	return (
+		<ActionIcon
+			variant="outline"
+			color={dark ? "yellow" : "blue"}
+			onClick={() => toggleColorScheme()}
+			title="[CTRL] + [J]"
+		>
+			{dark ? <Sun size={18} /> : <MoonStars size={18} />}
+		</ActionIcon>
+	);
+}
+
+function InfoModal() {
+	const [opened, setOpened] = React.useState(false);
+
+	return (
+		<>
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				title="Information"
+			>
+				<Info />
+			</Modal>
+
+			<ActionIcon
+				variant="outline"
+				onClick={() => setOpened(true)}
+			>
+				<InfoCircle size={18} />
+			</ActionIcon>
+		</>
 	);
 }

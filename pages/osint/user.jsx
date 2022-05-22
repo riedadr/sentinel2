@@ -193,7 +193,9 @@ export default function UserSearch() {
 				<div className="flex justify-between">
 					<h2
 						className={
-							data && data.is_private ? "text-red-500" : "text-blue-500"
+							data && data.is_private
+								? "text-red-500"
+								: "text-blue-500"
 						}
 					>
 						Instagram
@@ -220,7 +222,10 @@ export default function UserSearch() {
 								<h3 className="flex items-center">
 									{data.full_name} ({data.username}){" "}
 									{data.is_private && (
-										<Lock className="text-red-500" title="private account"/>
+										<Lock
+											className="text-red-500"
+											title="private account"
+										/>
 									)}
 								</h3>
 								<code>
@@ -316,6 +321,8 @@ export default function UserSearch() {
 							href={"https://instagram.com/" + data.username}
 							target="_blank"
 							rel="noreferrer"
+							variant="gradient"
+							gradient={{ from: "orange", to: "violet", deg: 90 }}
 							leftIcon={<BrandInstagram />}
 						>
 							Open on Instagram
