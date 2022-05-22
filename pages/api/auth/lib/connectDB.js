@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const uri = "mongodb://mongodb.cit116.xyz:27017"
+const uri = "mongodb+srv://sentinel:cit116MONGODB@cluster0.x87mp.mongodb.net/?retryWrites=true&w=majority"
 
 export const connectDB = () => {
 	if (mongoose.connections[0].readyState) {
