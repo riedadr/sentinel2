@@ -16,7 +16,7 @@ export default function login() {
 			</nav>
 			<main>
 				<div className={styles.Prompt}>
-					<h1>Login</h1>
+					<h1>Register</h1>
 					<Form />
 				</div>
 			</main>
@@ -27,8 +27,9 @@ export default function login() {
 function Form() {
 	const userRef = useRef();
 	const pwRef = useRef();
+	const [message, setMessage] = React.useState(null)
 
-	async function submit(e) {
+    async function submit(e) {
 		e.preventDefault();
 		let user = userRef.current.value;
 		let pw = pwRef.current.value;
@@ -45,12 +46,8 @@ function Form() {
 			<label htmlFor="pw">Password</label>
 			<input name="pw" type="password" ref={pwRef} />
 			<br />
-			<Button
-				type="submit"
-				className="bg-theme"
-				color="orange"
-				onClick={submit}
-			>
+			{message && <p className="text-red-500">{message}</p>}
+			<Button type="submit" className="bg-theme" color="orange" onClick={submit}>
 				anmelden
 			</Button>
 		</form>
