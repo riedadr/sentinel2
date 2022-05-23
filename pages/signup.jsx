@@ -4,6 +4,7 @@ import { Logo } from "../assets/images/Logo";
 import styles from "../styles/Login.module.css";
 import { Button, Text } from "@mantine/core";
 import Router from "next/router";
+import bcryptjs from "bcryptjs";
 
 export default function login() {
 	return (
@@ -25,9 +26,9 @@ export default function login() {
 }
 
 function Form() {
+	const [encryptPW, setEncryptPW] = useState();
 	const userRef = useRef();
 	const pwRef = useRef();
-	const [message, setMessage] = React.useState(null)
 
     async function submit(e) {
 		e.preventDefault();
@@ -35,6 +36,7 @@ function Form() {
 		let pw = pwRef.current.value;
 
 		console.log(user, pw);
+		setEncryptPW(pw);
 
 		//return Router.push("/")
 	}
@@ -46,7 +48,7 @@ function Form() {
 			<label htmlFor="pw">Password</label>
 			<input name="pw" type="password" ref={pwRef} />
 			<br />
-			{message && <p className="text-red-500">{message}</p>}
+			{encryptPW && <p className="text-red-500">{encryptPW}</p>}
 			<Button type="submit" className="bg-theme" color="orange" onClick={submit}>
 				anmelden
 			</Button>

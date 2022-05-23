@@ -9,7 +9,7 @@ export function useInfo() {
 export function InfoProvider({ children }) {
 	const [user, setUser] = useState({
 		user: "Karsten",
-		person: "cit116",
+		role: "cit116",
 		group: "sentinel",
 		image: "https://github.com/riedadr.png",
 	});

@@ -140,7 +140,7 @@ function UserContent() {
 							{user.user}
 						</Text>
 						<Text color="dimmed" size="xs">
-							{user.pserson}@{user.group}
+							{user.role}@{user.group}
 						</Text>
 					</Box>
 
