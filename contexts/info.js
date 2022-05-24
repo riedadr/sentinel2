@@ -57,10 +57,10 @@ export function InfoProvider({ children }) {
 		getIP();
 		getGPS();
 
-		setTheme(localStorage.colorScheme);
-		document.querySelector("body").className = localStorage.colorScheme
+		setTheme(localStorage.colorScheme ? localStorage.colorScheme : "light");
+		document.querySelector("body").className = localStorage.colorScheme ? localStorage.colorScheme
 			.replace('"', "")
-			.replace('"', "");
+			.replace('"', "") : "light";
 	}, []);
 
 	return (
