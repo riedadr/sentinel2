@@ -10,14 +10,21 @@ export default function Info() {
 			<div id="ip">
 				<h3>IP</h3>
 				<p>
-					<span className="text-theme font-bold">{ipAddr}</span>
+					{ipAddr && (
+						<span className="text-theme font-bold">{ipAddr}</span>
+					)}
 				</p>
-				<p>
-					<code>Location:</code> {ipLoc.city} ({ipLoc.region}), {ipLoc.country}
-				</p>
-				<p>
-					<code>Timezone:</code> {ipLoc.timezone}
-				</p>
+				{ipLoc && (
+					<>
+						<p>
+							<code>Location:</code> {ipLoc.city} ({ipLoc.region}
+							), {ipLoc.country}
+						</p>
+						<p>
+							<code>Timezone:</code> {ipLoc.timezone}
+						</p>
+					</>
+				)}
 			</div>
 
 			{gps && (
@@ -27,14 +34,20 @@ export default function Info() {
 						{gps.coords.latitude}°N {gps.coords.longitude}°E
 					</p>
 					<Button
-					className="mt-2"
-					variant="outline"
-					component="a"
-					href={"https://www.google.com/maps/place/" + gps.coords.latitude + "N+" + gps.coords.longitude + "E"}
-					target="_blank"
-					rel="noreferrer"
-					leftIcon={<Map2 />}
-						>
+						className="mt-2"
+						variant="outline"
+						component="a"
+						href={
+							"https://www.google.com/maps/place/" +
+							gps.coords.latitude +
+							"N+" +
+							gps.coords.longitude +
+							"E"
+						}
+						target="_blank"
+						rel="noreferrer"
+						leftIcon={<Map2 />}
+					>
 						Gmaps
 					</Button>
 				</div>
