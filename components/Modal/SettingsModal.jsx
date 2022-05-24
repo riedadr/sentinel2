@@ -9,8 +9,8 @@ import {
 	TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
-import React, { useRef, useState } from "react";
-import { Tool, UserPlus, User, Checkbox } from "tabler-icons-react";
+import React from "react";
+import { Tool, User } from "tabler-icons-react";
 import { useInfo } from "../../contexts/info";
 
 export default function SettingsModal() {
@@ -25,10 +25,8 @@ export default function SettingsModal() {
 				title="Settings"
 			>
 				<Tabs>
-					<Tab label={user.device} icon={<User />}><CurrentUser /></Tab>
-					<Tab label="Users" icon={<UserPlus />}>
-						<NewUser />
-					</Tab>
+					<Tab label={user.user} icon={<User />}><CurrentUser /></Tab>
+					
 				</Tabs>
 			</Modal>
 
@@ -71,62 +69,6 @@ function CurrentUser() {
 					label="User"
 					placeholder="cit116"
 					{...form.getInputProps("person")}
-				/>
-				<TextInput
-					label="Group"
-					placeholder="sentinel"
-					{...form.getInputProps("group")}
-				/>
-				<TextInput
-					
-					label="Image"
-					placeholder="https://github.com/riedadr.png"
-					{...form.getInputProps("image")}
-				/>
-
-				<Group position="right" mt="md">
-					<Button type="submit">Submit</Button>
-				</Group>
-			</form>
-		</Box>
-	);
-}
-
-
-function NewUser() {
-	const form = useForm({
-		initialValues: {
-			user: "",
-			password: "",
-			person: "",
-			group: "",
-			image: "",
-			termsOfService: false,
-		},
-	});
-	const [message, setMessage] = useState(null);
-
-	return (
-		<Box>
-			<form onSubmit={form.onSubmit((values) => console.log(values))}>
-				<TextInput
-					required
-					label="Device"
-					placeholder="Karsten"
-					{...form.getInputProps("user")}
-				/>
-				<TextInput
-					required
-					label="Password"
-                    type="password"
-					placeholder="••••••••••••••••"
-					{...form.getInputProps("password")}
-				/>
-				<TextInput
-					
-					label="User"
-					placeholder="cit116"
-					{...form.getInputProps("pserson")}
 				/>
 				<TextInput
 					label="Group"
